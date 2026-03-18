@@ -49,8 +49,10 @@ def load_model():
 
     tokenizer  = DistilBertTokenizerFast.from_pretrained(SAVE_DIR)
     model      = MultiTaskDistilBERT(cfg["model_name"]).to(DEVICE)
+
+    # FIX: weights_only=True avoids deprecation warning in PyTorch 2.x
     state_dict = torch.load(os.path.join(SAVE_DIR, "model.pt"),
-                            map_location=DEVICE)
+                            map_location=DEVICE, weights_only=True)
     model.load_state_dict(state_dict)
     model.eval()
 
