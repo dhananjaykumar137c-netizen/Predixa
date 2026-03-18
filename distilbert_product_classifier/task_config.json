@@ -1,0 +1,8 @@
+{
+  "model_name": "distilbert-base-uncased",
+  "max_len": 128,
+  "categories": {
+    "0": "All Beauty",
+    "1": "Appliances"
+  }
+}

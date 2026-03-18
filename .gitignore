@@ -1,4 +1,4 @@
 dataset/
 __pycache__/
 *.pyc
-distilbert_product_classifier/
+distilbert_product_classifier/model.pt
