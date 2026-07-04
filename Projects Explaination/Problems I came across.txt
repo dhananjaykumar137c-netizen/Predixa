@@ -1,0 +1,146 @@
+1. While training the data it took too much time. about 3-4 hours.
+For every batch of 16 reviews, the model runs 6 transformer layers, each doing massive matrix multiplications across 768 dimensions. On CPU, a single epoch over 4,000 samples (your 2k×2 classes) takes 30–90 minutes. With 3 epochs, you're looking at 2–5 hours just to finish training.
+
+
+What I did to solve it = shifted the code to google collab, used my idle sitting gpu which was not ebing used before.
+
+
+2. training data was taking too much time cuz pytorch was running on cpu only mode. cuz i instaled the cpu only mode by mistake
+what i did- 
+check my if gpu was in use
+python -c "import torch; print(torch.cuda.is_available()); print(torch.cuda.get_device_name(0) if torch.cuda.is_available() else 'No GPU')"
+>>
+False
+No GPU
+
+then checked my ram and which version it will support
+python -c "import torch; print('PyTorch:', torch.__version__); import platform; print('Platform:', platform.machine())"
+PyTorch: 2.10.0+cpu
+Platform: AMD64
+
+…\dhana\ADIP > nvidia-smi --query-gpu=name,driver_version,memory.total --format=csv
+name, driver_version, memory.total [MiB]
+NVIDIA GeForce GTX 1650, 555.97, 4096 MiB
+
+I have an NVIDIA GeForce GTX 1650 with driver version 555.97, which supports CUDA 12.x.
+The fix is simple — uninstall the CPU-only PyTorch and reinstall the CUDA version:
+
+3. OUTput
+
+
+(base) PS C:\Users\dhana\ADIP> python app.py                                                                                                       
+Using device: cuda
+
+============================================================
+  Instance Counts — Before and After Cleaning
+============================================================
+
+  [All Beauty]
+    Before cleaning : 371,345 instances
+    After  cleaning : 362,713 instances
+    Removed         : 8,632 instances
+
+  [Appliances]
+    Before cleaning : 602,777 instances
+    After  cleaning : 591,371 instances
+    Removed         : 11,406 instances
+
+============================================================
+
+============================================================
+  Model Training  (80% Train / 20% Test)
+============================================================
+
+  Train split : 3,200 instances  (80%)
+  Test  split : 800 instances  (20%)
+
+  Loading tokenizer : distilbert-base-uncased
+  Loading model     : distilbert-base-uncased  |  Device: cuda
+Loading weights: 100%|████████████████████████████████████████████████████████████████████████████████████████| 100/100 [00:00<00:00, 2857.35it/s]
+DistilBertModel LOAD REPORT from: distilbert-base-uncased
+Key                     | Status     |  |
+------------------------+------------+--+-
+vocab_layer_norm.weight | UNEXPECTED |  |
+vocab_transform.bias    | UNEXPECTED |  |
+vocab_layer_norm.bias   | UNEXPECTED |  |
+vocab_projector.bias    | UNEXPECTED |  |
+vocab_transform.weight  | UNEXPECTED |  |
+
+Notes:
+- UNEXPECTED    :can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+
+=================================================================
+  Training Multi-Task DistilBERT
+  Epochs: 3  |  Batch size: 16  |  LR: 2e-05
+=================================================================
+  Epoch 1/3  | Train  Loss: 1.4589  Acc: 71.84%  MAE: 0.658  | Val Loss: 0.8576  Acc: 84.00%  MAE: 0.447
+    [OK] Best model saved  (val acc: 84.00%)
+  Epoch 2/3  | Train  Loss: 0.6337  Acc: 85.34%  MAE: 0.353  | Val Loss: 0.8956  Acc: 85.88%  MAE: 0.457
+Notes:
+- UNEXPECTED    :can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+
+=================================================================
+  Training Multi-Task DistilBERT
+  Epochs: 3  |  Batch size: 16  |  LR: 2e-05
+=================================================================
+  Epoch 1/3  | Train  Loss: 1.4589  Acc: 71.84%  MAE: 0.658  | Val Loss: 0.8576  Acc: 84.00%  MAE: 0.447
+    [OK] Best model saved  (val acc: 84.00%)
+  Epoch 2/3  | Train  Loss: 0.6337  Acc: 85.34%  MAE: 0.353  | Val Loss: 0.8956  Acc: 85.88%  MAE: 0.457
+
+=================================================================
+  Training Multi-Task DistilBERT
+  Epochs: 3  |  Batch size: 16  |  LR: 2e-05
+=================================================================
+  Epoch 1/3  | Train  Loss: 1.4589  Acc: 71.84%  MAE: 0.658  | Val Loss: 0.8576  Acc: 84.00%  MAE: 0.447
+    [OK] Best model saved  (val acc: 84.00%)
+  Epoch 2/3  | Train  Loss: 0.6337  Acc: 85.34%  MAE: 0.353  | Val Loss: 0.8956  Acc: 85.88%  MAE: 0.457
+=================================================================
+  Training Multi-Task DistilBERT
+  Epochs: 3  |  Batch size: 16  |  LR: 2e-05
+=================================================================
+  Epoch 1/3  | Train  Loss: 1.4589  Acc: 71.84%  MAE: 0.658  | Val Loss: 0.8576  Acc: 84.00%  MAE: 0.447
+    [OK] Best model saved  (val acc: 84.00%)
+  Epoch 2/3  | Train  Loss: 0.6337  Acc: 85.34%  MAE: 0.353  | Val Loss: 0.8956  Acc: 85.88%  MAE: 0.457
+  Epochs: 3  |  Batch size: 16  |  LR: 2e-05
+=================================================================
+  Epoch 1/3  | Train  Loss: 1.4589  Acc: 71.84%  MAE: 0.658  | Val Loss: 0.8576  Acc: 84.00%  MAE: 0.447
+    [OK] Best model saved  (val acc: 84.00%)
+  Epoch 2/3  | Train  Loss: 0.6337  Acc: 85.34%  MAE: 0.353  | Val Loss: 0.8956  Acc: 85.88%  MAE: 0.457
+=================================================================
+  Epoch 1/3  | Train  Loss: 1.4589  Acc: 71.84%  MAE: 0.658  | Val Loss: 0.8576  Acc: 84.00%  MAE: 0.447
+    [OK] Best model saved  (val acc: 84.00%)
+  Epoch 2/3  | Train  Loss: 0.6337  Acc: 85.34%  MAE: 0.353  | Val Loss: 0.8956  Acc: 85.88%  MAE: 0.457
+  Epoch 1/3  | Train  Loss: 1.4589  Acc: 71.84%  MAE: 0.658  | Val Loss: 0.8576  Acc: 84.00%  MAE: 0.447
+    [OK] Best model saved  (val acc: 84.00%)
+  Epoch 2/3  | Train  Loss: 0.6337  Acc: 85.34%  MAE: 0.353  | Val Loss: 0.8956  Acc: 85.88%  MAE: 0.457
+    [OK] Best model saved  (val acc: 85.88%)
+  Epoch 3/3  | Train  Loss: 0.4382  Acc: 89.53%  MAE: 0.281  | Val Loss: 0.6779  Acc: 86.62%  MAE: 0.355
+    [OK] Best model saved  (val acc: 86.62%)
+  Epoch 2/3  | Train  Loss: 0.6337  Acc: 85.34%  MAE: 0.353  | Val Loss: 0.8956  Acc: 85.88%  MAE: 0.457
+    [OK] Best model saved  (val acc: 85.88%)
+  Epoch 3/3  | Train  Loss: 0.4382  Acc: 89.53%  MAE: 0.281  | Val Loss: 0.6779  Acc: 86.62%  MAE: 0.355
+    [OK] Best model saved  (val acc: 86.62%)
+    [OK] Best model saved  (val acc: 85.88%)
+  Epoch 3/3  | Train  Loss: 0.4382  Acc: 89.53%  MAE: 0.281  | Val Loss: 0.6779  Acc: 86.62%  MAE: 0.355
+    [OK] Best model saved  (val acc: 86.62%)
+
+
+  [OK] Training complete.  Best val accuracy : 86.62%
+  [OK] Model saved to      : ./distilbert_product_classifier/
+
+======================================================================
+  Sample Predictions on Test Set  (10 instances)
+======================================================================
+ #  True Category   Pred Category      Conf  True *  Pred *  Review (truncated)
+----------------------------------------------------------------------
+ 1[X] All Beauty      Appliances        98.2%     1.0    1.74  I have purchased this product at least t 6 ti…
+ 2[OK] Appliances      Appliances        99.7%     5.0    4.94  Perfect Fit for my washer and the clutch enga…
+ 3[OK] All Beauty      All Beauty        99.5%     5.0    4.63  I am 65 years old and have owned several elec…
+ 4[OK] Appliances      Appliances        88.0%     1.0    1.49  Broke down within three weeks, Called GE serv…
+ 5[OK] All Beauty      All Beauty        54.4%     5.0    4.98  Bought this for a customer it was exactly wha…
+ 6[OK] All Beauty      All Beauty        96.0%     2.0    2.79  Bought these for my fianc to use.  The do the…
+ 7[OK] All Beauty      All Beauty        99.4%     5.0    4.81  My nail tech, who has taken care of me for tw…
+ 8[OK] Appliances      Appliances        95.9%     5.0    4.95  fits perfectly. Why pay more? [SEP] Five Star…
+ 9[OK] All Beauty      All Beauty        94.6%     1.0    4.15  This gloss required me to put on 5 layers bef…
+10[X] All Beauty      Appliances        51.5%     4.0    3.95  Great, last long. [SEP] Four Stars…
+======================================================================

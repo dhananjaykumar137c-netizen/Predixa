@@ -1,0 +1,30 @@
+1. The Steps We Took
+Phase 1: Initialization
+What we did: Ran git init to start tracking the ADIP folder.
+
+The Goal: Turn a local folder into a Git repository so it can be uploaded to GitHub.
+
+Phase 2: The "Clean" Reset
+What we did: Deleted the .git folder and re-initialized.
+
+The Goal: Because the 1GB dataset was already "staged" in Git’s hidden memory, simply adding a .gitignore wasn't enough. We had to "nuke" the history to start with a truly empty slate.
+
+Phase 3: Setting the "Shield" (.gitignore)
+What we did: Created a .gitignore file specifically listing dataset/ and __pycache__/.
+
+The Goal: To tell Git: "Ignore these heavy or temporary files forever."
+
+Phase 4: Branching and Pushing
+What we did: Created a qa branch (git checkout -b qa) and pushed to GitHub using a Personal Access Token (PAT).
+
+The Goal: To keep the code in a dedicated environment for testing rather than the production-ready main branch.
+
+2. The Challenges & Why They Happened
+3. Why This Matters for ADIP
+Since you are building an Alternative Data Intelligence Pipeline, your datasets will likely only get larger.
+
+Code is for Git: Your logic, cleaning scripts (data_functions.py), and models (train_classifier.py) stay in GitHub.
+
+Data is for Storage: Your 1GB JSON files stay on your local drive or a cloud bucket (like AWS S3).
+
+This separation is what makes your project "production-ready."
