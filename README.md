@@ -1,6 +1,6 @@
-# ADIP: Alternative Data Intelligence Pipeline 🚀
+# PREDIXA 🚀
 
-Welcome to **ADIP** (Alternative Data Intelligence Pipeline), a machine learning pipeline designed to clean, process, and analyze large e-commerce product datasets, and train a **multi-task PyTorch model** using a shared `distilbert-base-uncased` backbone.
+Welcome to **PREDIXA** , a machine learning pipeline designed to clean, process, and analyze large e-commerce product datasets, and train a **multi-task PyTorch model** using a shared `distilbert-base-uncased` backbone.
 
 The pipeline performs two prediction tasks simultaneously based on product reviews (concatenating the review body and summary):
 1. **Category Classification** (Binary classification): Classifies reviews into **All Beauty** (0) or **Appliances** (1).
