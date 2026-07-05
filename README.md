@@ -1,6 +1,12 @@
+<<<<<<< HEAD
 # ADIP: Alternative Data Intelligence Pipeline 🚀
 
 Welcome to **ADIP** (Alternative Data Intelligence Pipeline), a machine learning pipeline designed to clean, process, and analyze large e-commerce product datasets, and train a **multi-task PyTorch model** using a shared `distilbert-base-uncased` backbone.
+=======
+# PREDIXA 🚀
+
+Welcome to **PREDIXA** , a machine learning pipeline designed to clean, process, and analyze large e-commerce product datasets, and train a **multi-task PyTorch model** using a shared `distilbert-base-uncased` backbone.
+>>>>>>> 6cd6e2bdeef949413a547bea1556f25d0276c683
 
 The pipeline performs two prediction tasks simultaneously based on product reviews (concatenating the review body and summary):
 1. **Category Classification** (Binary classification): Classifies reviews into **All Beauty** (0) or **Appliances** (1).
@@ -41,8 +47,11 @@ $$\mathcal{L}_{\text{total}} = \mathcal{L}_{\text{category}} + \lambda \cdot \ma
 *   **[app.py](file:///c:/Users/dhana/ADIP/app.py)**: The main orchestrator file. It loads the raw datasets, reports pre- and post-cleaning record counts, executes the model training pipeline, and showcases sample predictions.
 *   **[train_classifier.py](file:///c:/Users/dhana/ADIP/train_classifier.py)**: Contains the core dataset class (`ReviewDataset`), the PyTorch multi-task model definition (`MultiTaskDistilBERT`), and the custom training/evaluation loops.
 *   **[predict.py](file:///c:/Users/dhana/ADIP/predict.py)**: CLI inference tool to load the trained model checkpoints and run predictions on arbitrary review strings.
+<<<<<<< HEAD
 *   **[web_app.py](file:///c:/Users/dhana/ADIP/web_app.py)**: Flask web server backend linking the multi-task model with the user interface.
 *   **[templates/index.html](file:///c:/Users/dhana/ADIP/templates/index.html)**: Interactive, glassmorphic single-page web dashboard for inputting reviews and displaying results.
+=======
+>>>>>>> 6cd6e2bdeef949413a547bea1556f25d0276c683
 *   **[data_functions.py](file:///c:/Users/dhana/ADIP/data_functions.py)**: Library for data cleaning steps (deduplication, whitespace trimming, lowercasing fields, and tracking statistics).
 *   **[count_entries.py](file:///c:/Users/dhana/ADIP/count_entries.py)**: Out-of-core file streamer utility for checking records and inspecting metadata.
 *   **`dataset/`** *(Ignored by Git)*: Folder hosting large raw JSON lines datasets (e.g., `All_Beauty.json`, `Appliances.json`).
@@ -55,7 +64,11 @@ $$\mathcal{L}_{\text{total}} = \mathcal{L}_{\text{category}} + \lambda \cdot \ma
 ### 1. Prerequisites & Dependencies
 Ensure you have Python 3.8+ installed. Install the required machine learning packages:
 ```bash
+<<<<<<< HEAD
 pip install torch transformers pandas scikit-learn numpy flask
+=======
+pip install torch transformers pandas scikit-learn numpy
+>>>>>>> 6cd6e2bdeef949413a547bea1556f25d0276c683
 ```
 
 > [!TIP]
@@ -102,6 +115,7 @@ python predict.py "This face cream is absolutely wonderful for dry skin, highly 
 python predict.py
 ```
 
+<<<<<<< HEAD
 ### Option 4: Run the Web UI Dashboard
 To run the interactive, premium web interface:
 ```bash
@@ -109,6 +123,8 @@ python web_app.py
 ```
 *   *Navigate to `http://127.0.0.1:5000` in your web browser.*
 
+=======
+>>>>>>> 6cd6e2bdeef949413a547bea1556f25d0276c683
 ---
 
 ## 📊 Sample Pipeline Run
@@ -145,7 +161,10 @@ Using device: cuda
 ```
 
 ---
+<<<<<<< HEAD
 
 ## 🔒 Separation of Code and Data (Git Best Practices)
 
 To avoid push limits and repository bloating, a custom `.gitignore` shields the codebase. Large raw datasets (`dataset/`) and model weight checkpoints (`distilbert_product_classifier/`) are excluded from Git tracking. This maintains a lightweight, production-ready code repository suitable for version control on GitHub.
+=======
+>>>>>>> 6cd6e2bdeef949413a547bea1556f25d0276c683
