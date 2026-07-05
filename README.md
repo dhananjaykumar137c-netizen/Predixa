@@ -136,7 +136,3 @@ Using device: cuda
 ```
 
 ---
-
-## 🔒 Separation of Code and Data (Git Best Practices)
-
-To avoid push limits and repository bloating, a custom `.gitignore` shields the codebase. Large raw datasets (`dataset/`) and model weight checkpoints (`distilbert_product_classifier/`) are excluded from Git tracking. This maintains a lightweight, production-ready code repository suitable for version control on GitHub.
