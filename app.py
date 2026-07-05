@@ -1,5 +1,5 @@
 """
-app.py — Main entry point for the ADIP project.
+app.py — Main entry point for the project.
 
 Pipeline:
   1. Print instance counts for both raw datasets (before cleaning).

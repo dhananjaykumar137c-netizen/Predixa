@@ -367,7 +367,7 @@ def main():
     # 7. Load best model & show predictions on 10 test instances --------------
     print("\nLoading best saved model for test predictions…")
     model.load_state_dict(torch.load(os.path.join(SAVE_DIR, "model.pt"),
-                                     map_location=DEVICE))
+                                     map_location=DEVICE, weights_only=True))
     show_test_predictions(model, val_df, tokenizer, config, n=10)
 
     print(f"\nRun inference on any text with:\n  python predict.py \"<your review text here>\"")

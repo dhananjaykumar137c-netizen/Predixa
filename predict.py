@@ -108,7 +108,10 @@ def main():
     print(f"Model loaded from '{SAVE_DIR}' | Device: {DEVICE}")
 
     if len(sys.argv) > 1:
-        text   = " ".join(sys.argv[1:])
+        text   = " ".join(sys.argv[1:]).strip()
+        if not text:
+            print("\n[ERROR] Input text cannot be empty or only whitespace.")
+            sys.exit(1)
         result = predict(text, model, tokenizer, cfg)
         print_result(text, result)
     else:
