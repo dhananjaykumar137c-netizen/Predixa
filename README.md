@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # PREDIXA: Alternative Data Intelligence Pipeline 🚀
 
 Welcome to **PREDIXA**, a machine learning pipeline designed to clean, process, and analyze large e-commerce product datasets, and train a **multi-task PyTorch model** using a shared `distilbert-base-uncased` backbone.
@@ -5,39 +6,37 @@ Welcome to **PREDIXA**, a machine learning pipeline designed to clean, process, 
 The pipeline performs two prediction tasks simultaneously based on product reviews (concatenating the review body and summary):
 1. **Category Classification** (Binary classification): Classifies reviews into **All Beauty** (0) or **Appliances** (1).
 2. **Rating Prediction** (Regression): Predicts a star rating from **1.0 to 5.0**.
+=======
+# Predixa
+
+**Predixa** is a multi-task deep learning project that classifies product reviews and predicts star ratings using a fine-tuned **DistilBERT** model. It demonstrates end-to-end NLP workflows including data cleaning, model training, evaluation, and inference.
+>>>>>>> f8e7041d6e1672244bf78f43f63bd7efc665b01d
 
 ---
 
-## 🏗️ Neural Network Architecture
+## 📋 Project Overview
 
-The architecture uses a shared pretrained **DistilBERT** encoder to extract text representations, feeding the `[CLS]` token embedding into two independent linear output heads:
+### What It Does
 
-```
-  [Input Text (Review + Summary)]
-                 │
-      DistilBERT Shared Backbone
-                 │
-       [CLS] Token Embedding (768-dim)
-              ╱ ╲
-             ╱   ╲
-   Task Head 1    Task Head 2
-   (Linear 768→2)  (Linear 768→1)
-         │              │
-    Category logits  Star Rating
-    (CrossEntropy)   (Sigmoid × 4 + 1)
-         │              │
-    [All Beauty    [Rating 1.0–5.0]
-     vs Appliances]
-```
+Predixa performs **two tasks simultaneously** on Amazon product reviews:
 
-The model is optimized using a weighted sum of losses:
-$$\mathcal{L}_{\text{total}} = \mathcal{L}_{\text{category}} + \lambda \cdot \mathcal{L}_{\text{rating}}$$
-* Where $\mathcal{L}_{\text{category}}$ is Cross-Entropy Loss, $\mathcal{L}_{\text{rating}}$ is Mean Squared Error (MSE), and $\lambda = 1.0$ (hyperparameter).
+1. **Category Classification**: Predicts whether a review is for "All Beauty" or "Appliances" products
+2. **Rating Prediction**: Predicts the star rating (1.0 – 5.0) based on review text
+
+### Architecture
+
+- **Model**: DistilBERT (distilbert-base-uncased)
+- **Approach**: Multi-task learning with a shared DistilBERT backbone and two independent prediction heads
+  - Category head: 2-class classification (CrossEntropyLoss)
+  - Rating head: Regression (MSELoss)
+- **Framework**: PyTorch with Hugging Face Transformers
+- **Language Composition**: 58.9% Python | 41.1% HTML
 
 ---
 
-## 📂 Repository Structure
+## 🎯 Key Features
 
+<<<<<<< HEAD
 *   **[app.py](file:///c:/Users/dhana/ADIP/app.py)**: The main orchestrator file. It loads the raw datasets, reports pre- and post-cleaning record counts, executes the model training pipeline, and showcases sample predictions.
 *   **[train_classifier.py](file:///c:/Users/dhana/ADIP/train_classifier.py)**: Contains the core dataset class (`ReviewDataset`), the PyTorch multi-task model definition (`MultiTaskDistilBERT`), and the custom training/evaluation loops.
 *   **[predict.py](file:///c:/Users/dhana/ADIP/predict.py)**: CLI inference tool to load the trained model checkpoints and run predictions on arbitrary review strings.
@@ -170,3 +169,14 @@ Using device: cuda
 ## 🔒 Separation of Code and Data (Git Best Practices)
 
 To avoid push limits and repository bloating, a custom `.gitignore` shields the codebase. Large raw datasets (`dataset/`) and model weight checkpoints (`distilbert_product_classifier/`) are excluded from Git tracking. This maintains a lightweight, production-ready code repository suitable for version control on GitHub.
+=======
+✅ **Data Cleaning**: Multi-step pipeline to handle missing values, duplicates, and text normalization  
+✅ **Multi-Task Learning**: Jointly train category classification and rating prediction  
+✅ **Model Checkpointing**: Saves the best model based on validation accuracy  
+✅ **CLI Inference**: Predict category & rating from command-line text input  
+✅ **Flexible Configuration**: Easy-to-modify hyperparameters for training  
+
+---
+
+## 📁 Project Structure
+>>>>>>> f8e7041d6e1672244bf78f43f63bd7efc665b01d
