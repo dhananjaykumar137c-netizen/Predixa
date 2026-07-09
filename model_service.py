@@ -1,18 +1,17 @@
 import os
 import sys
-# pyrefly: ignore [missing-import]
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, jsonify
 
-# Ensure the workspace directory is in python path
+# Ensure the workspace directory is in the Python path
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 from predict import load_model, predict as run_prediction
 
-app = Flask(__name__, template_folder="templates")
+app = Flask(__name__)
 
 # Load model and config on startup
 print("=" * 60)
-print("  Initializing ADIP Web Backend...")
+print("  Initializing ADIP Model Service (Port 5001)...")
 print("  Loading trained Multi-Task DistilBERT model and tokenizer...")
 print("=" * 60)
 
@@ -23,12 +22,6 @@ except Exception as e:
     print(f"\n[ERROR] Failed to load model files: {e}")
     print("Please make sure you have run 'python train_classifier.py' to train the model first.\n")
     model, tokenizer, cfg = None, None, None
-
-
-@app.route("/")
-def index():
-    """Serve the web application dashboard."""
-    return render_template("index.html")
 
 
 @app.route("/predict", methods=["POST"])
@@ -53,5 +46,5 @@ def api_predict():
 
 
 if __name__ == "__main__":
-    # Host on localhost, run with reloader disabled to avoid double model loading
-    app.run(host="127.0.0.1", port=5000, debug=True, use_reloader=False)
+    # Host on localhost, port 5001, run with reloader disabled to avoid double model loading
+    app.run(host="127.0.0.1", port=5001, debug=False, use_reloader=False)

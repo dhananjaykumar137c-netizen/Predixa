@@ -2,3 +2,8 @@ dataset/
 __pycache__/
 *.pyc
 distilbert_product_classifier/model.pt
+
+# Node dependencies and builds
+node_modules/
+dist/
+.env
